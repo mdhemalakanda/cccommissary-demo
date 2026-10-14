@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minor Layout Fixes — Before / After</title>
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:#1c1c1e; background:#faf9f7; line-height:1.6; }
+  .wrap { max-width:1000px; margin:0 auto; padding:32px 24px 80px; }
+  h1 { font-size:26px; margin:0 0 4px; }
+  h2 { font-size:19px; margin:44px 0 6px; }
+  h2:first-of-type { margin-top:32px; }
+  .sub { color:#6b6b70; font-size:14px; margin:0; }
+  .p { background:#fff; border:1px solid #e4e4e8; border-left:5px solid #8f1d2c; border-radius:10px; padding:18px 22px; margin:20px 0; }
+  .p p { margin:0; font-size:16px; font-style:italic; }
+  .done { display:flex; align-items:center; gap:10px; background:#eef6ee; border:1px solid #cfe3d3; border-radius:10px; padding:16px 20px; margin:24px 0; }
+  .done .tick { width:28px; height:28px; border-radius:50%; background:#1f7a3d; color:#fff; display:flex; align-items:center; justify-content:center; font-size:16px; flex:none; }
+  .done p { margin:0; font-size:15px; }
+  .fix { background:#fff; border:1px solid #e4e4e8; border-radius:12px; padding:18px 20px; margin:18px 0; }
+  .fix h3 { margin:0 0 6px; font-size:15px; }
+  .fix p { margin:0; font-size:14px; color:#3c3c40; }
+  .pair { display:grid; grid-template-columns:1fr; gap:18px; margin:16px 0 8px; }
+  @media (min-width:820px){ .pair { grid-template-columns:1fr 1fr; } }
+  .shot { border:1px solid #e4e4e8; border-radius:10px; overflow:hidden; background:#111; }
+  .shot img { width:100%; height:auto; display:block; }
+  .label { font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:8px 12px; }
+  .label.before { background:#fdeaea; color:#a12626; }
+  .label.after  { background:#e8f4ea; color:#1f7a3d; }
+  figure { margin:14px 0 0; }
+  figcaption { font-size:13px; color:#6b6b70; margin-top:8px; }
+  ul { padding-left:20px; }
+  li { font-size:15px; margin:6px 0; }
+  footer { margin-top:48px; font-size:12px; color:#6b6b70; text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Minor Layout Fixes</h1>
+  <p class="sub">CCCommissary &middot; before / after &middot; October 2026</p>
+
+  <h2>Client request</h2>
+  <div class="p"><p>&ldquo;Minor layout fixes&rdquo;</p></div>
+
+  <div class="done">
+    <div class="tick">&#10003;</div>
+    <p><strong>Done.</strong> All fixes are applied, the site builds with zero errors, and every screenshot below is taken from the running site. Each pair shows the page before the fix (left / top) and after (right / bottom).</p>
+  </div>
+
+  <h2>What was fixed</h2>
+  <div class="fix"><h3>1 &middot; Admin panel colors didn't match the site theme</h3><p>The admin area still used leftovers from an old blue theme: a cyan highlight on the selected menu item, purple/cyan background glows, and a blue-tinted sidebar. Everything now uses the site's crimson &amp; gold theme.</p></div>
+  <div class="fix"><h3>2 &middot; Requisition pages used colors that aren't part of the design</h3><p>Vote counts, bars and buttons used bright mint/rose colors from a different design system. They now use the site's own green and red so all pages look consistent.</p></div>
+  <div class="fix"><h3>3 &middot; Wide tables could get cut off on phones</h3><p>Six pages had tables without the site's horizontal-scroll container (Shipping policy, Manifesto, Membership invoice, admin Card import, admin Products, admin Product categories). Wide tables are now contained and scroll sideways instead of being unreachable.</p></div>
+  <div class="fix"><h3>4 &middot; Notification dropdown could overflow small phones</h3><p>The notifications popup was a fixed 360px wide — wider than small phone screens. It now shrinks to fit any screen.</p></div>
+  <div class="fix"><h3>5 &middot; Pop-up confirm dialogs had an off-theme cyan button</h3><p>The &ldquo;Are you sure?&rdquo; dialog (used for deletes etc.) still had a bright cyan confirm button and bluish background from the old theme. It now matches the crimson/gold design.</p></div>
+  <div class="fix"><h3>6 &middot; Broken red accents on several pages</h3><p>Some buttons and accents (e.g. &ldquo;Clear cart&rdquo;) were supposed to be red but the CSS variable they referenced was never defined, so they rendered in the default text color. The missing variables are now defined and all 28 usages render correctly.</p></div>
+  <div class="fix"><h3>7 &middot; Deformed pills and stretched buttons in mobile tables</h3><p>In narrow table cells the status pills (&ldquo;2 (100%)&rdquo;) wrapped onto two lines into tall distorted circles, and the row&rsquo;s action buttons stretched into giant boxes. Pills now always stay on one line and buttons keep their normal shape on every table.</p></div>
+  <div class="fix"><h3>8 &middot; Admin tables had no styling at all</h3><p>Three admin pages (Requisition requests, Products, Product categories) used a table style that was never defined in the site&rsquo;s CSS, so they rendered with browser-default spacing: column headings collided (&ldquo;Total Status Created&rdquo;), chips touched dates, and rows had no rhythm. They now use the site&rsquo;s standard table component: clear column separation, single-line headings, comfortable padding, and tidy action buttons. Table buttons also never wrap onto two lines anymore, site-wide.</p></div>
+  <div class="fix"><h3>9 &middot; Cyan glows on buttons and a broken light alert box</h3><p>Primary buttons (Save, New card set, etc.) cast a <strong>cyan glow</strong> — a leftover from the old blue theme that clashed with the red/gold buttons. 27 of these old-color values were still hard-coded across the stylesheet (button glows, focus rings, badges, text selection, dropdown arrow). All now use the theme red. The &ldquo;Security Note&rdquo; alert on System Settings rendered as a light blue box from Bootstrap&rsquo;s defaults; alerts are now dark panels with theme-colored borders (red for info, gold for warning, green for success, red for danger).</p></div>
+
+  <h2>Fix 1 — Admin panel theme &nbsp;(before &rarr; after)</h2>
+  <div class="pair">
+    <figure><div class="shot"><div class="label before">Before — old blue highlight</div><img src="layout-screenshots/dashboard-before.png" alt="Admin dashboard before: cyan menu highlight and cool blue glow"></div>
+      <figcaption>Selected menu item highlighted in <strong>cyan/blue</strong>, cool purple-blue glow in the background — leftovers of the old theme.</figcaption></figure>
+    <figure><div class="shot"><div class="label after">After — theme colors</div><img src="layout-screenshots/dashboard-after.png" alt="Admin dashboard after: crimson menu highlight and warm glow"></div>
+      <figcaption>Selected menu item now uses the site's <strong>crimson &amp; gold</strong>; the background glow matches the theme.</figcaption></figure>
+  </div>
+
+  <h2>Fix 2 — Requisition page colors &nbsp;(before &rarr; after)</h2>
+  <div class="pair">
+    <figure><div class="shot"><div class="label before">Before — off-palette colors</div><img src="layout-screenshots/requisitions-before.png" alt="Requisitions before: bright mint green and rose vote colors"></div>
+      <figcaption>Vote bars and Yes/No percentages in bright mint/rose — colors that exist nowhere else in the design.</figcaption></figure>
+    <figure><div class="shot"><div class="label after">After — site palette</div><img src="layout-screenshots/requisitions-after.png" alt="Requisitions after: theme green and red vote colors"></div>
+      <figcaption>The vote green changed from bright mint to the site's own softer green, and the red from light rose to the site's red — same role, now matching every other page. The change is subtle by design; the dashboard pair above shows the stronger visual change.</figcaption></figure>
+  </div>
+
+  <h2>Fix 3 — Wide tables on phones &nbsp;(before &rarr; after)</h2>
+  <div class="pair">
+    <figure><div class="shot"><div class="label before">Before — table breaks the page</div><img src="layout-screenshots/tablewrap-before.png" alt="Wide table without scroll container overflows a phone screen"></div>
+      <figcaption>A wide admin table (816px) on a phone screen (390px): the table pushes past the screen edge and the cut-off columns cannot be reached. The six fixed pages had exactly this behavior.</figcaption></figure>
+    <figure><div class="shot"><div class="label after">After — clean and contained</div><img src="layout-screenshots/tablewrap-after2.png" alt="Table contained in a scroll card, item names fully readable"></div>
+      <figcaption>Now the table lives inside a card that fits the screen: item names, photos and rows render normally, and the pill peeking at the right edge shows there is more to scroll to.</figcaption></figure>
+  </div>
+  <figure><div class="shot"><div class="label after">After — scrolled sideways</div><img src="layout-screenshots/tablewrap-after-scrolled2.png" alt="Same table scrolled horizontally to the middle columns"></div>
+    <figcaption>Swiping sideways slides the columns inside the card, so nothing is unreachable. Notice the status pills stay on one line and the action buttons keep their normal size — this is fix 7 in action too.</figcaption></figure>
+
+  <h2>Fix 8 — Admin tables had no styling &nbsp;(before &rarr; after)</h2>
+  <div class="pair">
+    <figure><div class="shot"><div class="label before">Before — unstyled, headings collide</div><img src="layout-screenshots/admintable-desktop-before.png" alt="Admin requisitions table before: collided headings and cramped columns"></div>
+      <figcaption>Admin &rarr; Requisition requests: column headings collide into &ldquo;TotalStatus Created&rdquo;, the Open chip touches the date, and rows have no spacing rhythm — this table&rsquo;s style was never defined in the site&rsquo;s CSS.</figcaption></figure>
+    <figure><div class="shot"><div class="label after">After — standard table component</div><img src="layout-screenshots/admintable-desktop-after.png" alt="Admin requisitions table after: clean separated columns and comfortable spacing"></div>
+      <figcaption>Same page now using the site&rsquo;s standard table component: clear column separation (Item &middot; Yes &middot; No &middot; Total &middot; Status &middot; Created), single-line headings, dates on one line, and tidy, evenly spaced action buttons. Applies to all three affected admin pages and every table site-wide.</figcaption></figure>
+  </div>
+
+  <h2>Fix 9 — Button glows &amp; the Security Note alert &nbsp;(before &rarr; after)</h2>
+  <div class="pair">
+    <figure><div class="shot"><div class="label before">Before — cyan glow &amp; light alert box</div><img src="layout-screenshots/glow-settings-before.png" alt="System settings before: cyan button glow and light blue alert box"></div>
+      <figcaption>System Settings: the Save button glowed <strong>cyan</strong> (old theme leftover) and the Security Note rendered as a light blue Bootstrap box that broke the dark design.</figcaption></figure>
+    <figure><div class="shot"><div class="label after">After — theme-consistent glow &amp; dark alert</div><img src="layout-screenshots/glow-settings-after.png" alt="System settings after: warm red glow and dark alert panel"></div>
+      <figcaption>Buttons now glow in their own red/gold, and the Security Note is a dark panel with a subtle red border — readable and on-theme.</figcaption></figure>
+  </div>
+  <div class="pair">
+    <figure><div class="shot"><div class="label before">Before — cyan halo on Card Sets button</div><img src="layout-screenshots/glow-cardsets-before.png" alt="Card sets page before: cyan halo around the New card set button"></div>
+      <figcaption>Admin &rarr; Card Sets: the &ldquo;New card set&rdquo; button with a cyan halo around it.</figcaption></figure>
+    <figure><div class="shot"><div class="label after">After — matching red halo</div><img src="layout-screenshots/glow-cardsets-after.png" alt="Card sets page after: warm red halo around the New card set button"></div>
+      <figcaption>The same button now glows in the button&rsquo;s own color, as the design intends. 27 old-color values were replaced across the stylesheet — button glows, focus rings, badges, text selection, dropdown arrows.</figcaption></figure>
+  </div>
+
+  <h2>Also included</h2>
+  <ul>
+    <li>Notification popup now shrinks to fit small screens (was fixed 360px wide).</li>
+    <li>Confirm dialogs (delete &ldquo;Are you sure?&rdquo; pop-ups) recolored from old-theme cyan to the site theme.</li>
+    <li>The previously-broken red accents (28 places, e.g. &ldquo;Clear cart&rdquo;) now render in the intended red.</li>
+  </ul>
+
+  <footer>All screenshots taken from the running site with real data &middot; nothing was modified in the live database &middot; October 2026</footer>
+</div>
+</body>
+</html>
